@@ -1,0 +1,29 @@
+      font-weight: 400;
+      z-index: 10000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      border-left: 3px solid var(--green);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: all; }
+
+    /* ═══════════════════════════════════════════
+       DECORATIVE ELEMENTS
+    ═══════════════════════════════════════════ */
+    .deco-circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 1px solid var(--dust-grey);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    .green-line {
+      width: 1px;
+      height: 60px;
+      background: var(--green);
+      margin: 0 auto 24px;
+    }
+  </style>
