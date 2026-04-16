@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Our story — the journey behind Adventure Matcha. From the shaded fields of Uji to your morning ritual.">
+  <title>About — Adventure Matcha</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: #F2F2F2;
+      background: #0a0a0a;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
+    ul { list-style: none; }
+    ::selection { background: rgba(57,255,20,0.3); color: #fff; }
+
+    :root {
+      --neon-green: #39FF14;
+      --neon-green-rgb: 57,255,20;
+      --charcoal: #595959;
+      --grey: #7F7F7F;
+      --silver: #A5A5A5;
+      --dust-grey: #CCCCCC;
+      --platinum: #F2F2F2;
+      --bg-dark: #0a0a0a;
+      --bg-card: #141414;
+      --bg-card-hover: #1a1a1a;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
+      --section-padding: 140px 0;
+      --container-max: 1340px;
+      --container-pad: 24px;
+      --transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); }
+
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    .section-label {
+      font-family: var(--font-body); font-size: 10px; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--neon-green); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::before { content: ''; width: 32px; height: 1px; background: var(--neon-green); }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(36px, 5vw, 60px);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--platinum); margin-bottom: 24px;
+    }
+    .section-subtitle {
+      font-size: 16px; font-weight: 300; color: var(--silver);
+      max-width: 560px; line-height: 1.8;
+    }
+    .section-header { margin-bottom: 64px; }
+    .section-header.center { text-align: center; }
+    .section-header.center .section-label { justify-content: center; }
+    .section-header.center .section-subtitle { margin: 0 auto; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 28px 0; transition: var(--transition-smooth); }
+    .nav.scrolled { padding: 16px 0; background: rgba(10,10,10,0.92); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-pad); }
+    .nav-logo { font-family: var(--font-display); font-size: 26px; font-weight: 500; color: var(--platinum); letter-spacing: -0.02em; z-index: 1001; }
+    .nav-logo span { color: var(--neon-green); }
+
+    .hamburger { width: 32px; height: 24px; position: relative; z-index: 1001; display: flex; flex-direction: column; justify-content: space-between; }
+    .hamburger-line { display: block; width: 100%; height: 1.5px; background: var(--platinum); border-radius: 2px; transition: var(--transition-smooth); transform-origin: center; }
+    .hamburger.active .hamburger-line:nth-child(1) { transform: translateY(11.25px) rotate(45deg); background: var(--neon-green); }
+    .hamburger.active .hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active .hamburger-line:nth-child(3) { transform: translateY(-11.25px) rotate(-45deg); background: var(--neon-green); }
+
+    .mobile-nav { position: fixed; inset: 0; background: rgba(5,5,5,0.98); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s ease; }
+    .mobile-nav.open { opacity: 1; visibility: visible; }
+    .mobile-nav-links { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .mobile-nav-links a { font-family: var(--font-display); font-size: clamp(32px, 6vw, 52px); font-weight: 400; color: var(--silver); padding: 8px 24px; transition: color 0.4s ease, transform 0.4s ease; transform: translateY(30px); opacity: 0; transition: color 0.4s ease, transform 0.5s ease, opacity 0.5s ease; }
+    .mobile-nav.open .mobile-nav-links a { transform: translateY(0); opacity: 1; }
+    .mobile-nav.open .mobile-nav-links a:nth-child(1) { transition-delay: 0.15s; }
+    .mobile-nav.open .mobile-nav-links a:nth-child(2) { transition-delay: 0.25s; }
+    .mobile-nav.open .mobile-nav-links a:nth-child(3) { transition-delay: 0.35s; }
+    .mobile-nav.open .mobile-nav-links a:nth-child(4) { transition-delay: 0.45s; }
+    .mobile-nav-links a:hover, .mobile-nav-links a.active { color: var(--neon-green); }
+    .mobile-nav-footer { position: absolute; bottom: 48px; display: flex; gap: 24px; transform: translateY(20px); opacity: 0; transition: transform 0.5s ease 0.55s, opacity 0.5s ease 0.55s; }
+    .mobile-nav.open .mobile-nav-footer { transform: translateY(0); opacity: 1; }
+    .mobile-nav-footer a { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--silver); font-size: 14px; transition: border-color 0.3s, color 0.3s; }
+    .mobile-nav-footer a:hover { border-color: var(--neon-green); color: var(--neon-green); }
+
+    /* PAGE HERO */
+    .page-hero {
+      height: 60vh; min-height: 400px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://picsum.photos/seed/matchateafield/1600/800.jpg') center/cover no-repeat;
+      filter: brightness(0.2) saturate(0.4);
+    }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.8) 80%, rgba(10,10,10,1) 100%);
+    }
+    .page-hero-content { position: relative; z-index: 1; padding: 0 var(--container-pad); }
+    .page-hero .section-label { justify-content: center; }
+    .page-hero .section-title { margin-bottom: 16px; }
+
+    /* STORY */
+    .story-section { padding: var(--section-padding); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .story-image { position: relative; min-height: 560px; }
+    .story-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8) saturate(0.6); }
+    .story-text { padding: 80px; display: flex; flex-direction: column; justify-content: center; background: var(--bg-card); }
+    .story-text p { color: var(--silver); font-size: 16px; line-height: 1.9; margin-bottom: 20px; }
+
+    /* VALUES */
+    .values { padding: var(--section-padding); background: var(--bg-card); }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .value-card { text-align: center; padding: 40px 24px; }
+    .value-number { font-family: var(--font-display); font-size: 56px; font-weight: 300; color: rgba(var(--neon-green-rgb), 0.15); line-height: 1; margin-bottom: 20px; }
+    .value-card h3 { font-family: var(--font-display); font-size: 22px; font-weight: 400; color: var(--platinum); margin-bottom: 12px; }
+    .value-card p { font-size: 13px; color: var(--grey); line-height: 1.8; }
+
+    /* PARALLAX */
+    .parallax-section { position: relative; overflow: hidden; }
+    .parallax-bg { position: absolute; inset: -20% 0; background-size: cover; background-position: center; background-repeat: no-repeat; will-change: transform; }
+    .parallax-banner { height: 50vh; min-height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+    .parallax-banner .parallax-bg { filter: brightness(0.25) saturate(0.4); }
+    .parallax-banner-content { position: relative; z-index: 1; }
+    .parallax-banner .section-title { margin-bottom: 12px; }
+
+    /* TIMELINE */
+    .timeline { padding: var(--section-padding); }
+    .timeline-items { max-width: 720px; margin: 0 auto; }
+    .timeline-item { display: flex; gap: 32px; padding-bottom: 56px; position: relative; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ''; position: absolute; left: 18px; top: 36px; bottom: 0; width: 1px; background: rgba(255,255,255,0.06); }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot { width: 37px; height: 37px; border: 1px solid rgba(var(--neon-green-rgb), 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; background: var(--bg-dark); }
+    .timeline-dot-inner { width: 7px; height: 7px; background: var(--neon-green); border-radius: 50%; }
+    .timeline-year { font-family: var(--font-display); font-size: 20px; color: var(--neon-green); margin-bottom: 6px; }
+    .timeline-item h3 { font-family: var(--font-display); font-size: 22px; font-weight: 400; color: var(--platinum); margin-bottom: 10px; }
+    .timeline-item p { font-size: 14px; color: var(--grey); line-height: 1.8; }
+
+    /* BTN */
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; background: var(--neon-green); color: #0a0a0a; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; transition: var(--transition-smooth); position: relative; overflow: hidden; }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; background: #fff; transform: translateX(-101%); transition: transform 0.5s ease; }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary:hover { box-shadow: 0 0 30px rgba(var(--neon-green-rgb), 0.4); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; border: 1px solid rgba(255,255,255,0.2); color: var(--platinum); font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; transition: var(--transition-smooth); }
+    .btn-outline:hover { border-color: var(--neon-green); color: var(--neon-green); }
+
+    /* FOOTER */
+    .footer { padding: 80px 0 0; border-top: 1px solid rgba(255,255,255,0.05); background: #060606; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+    .footer-brand p { font-size: 14px; color: var(--grey); line-height: 1.8; margin-top: 20px; max-width: 320px; }
+    .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+    .footer-social a { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--silver); font-size: 13px; transition: var(--transition-smooth); }
+    .footer-social a:hover { border-color: var(--neon-green); color: var(--neon-green); transform: translateY(-2px); }
+    .footer-col h4 { font-family: var(--font-display); font-size: 18px; font-weight: 400; color: var(--platinum); margin-bottom: 24px; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul a { font-size: 13px; color: var(--grey); transition: color 0.3s; }
+    .footer-col ul a:hover { color: var(--neon-green); }
+    .footer-bottom { padding: 28px 0; border-top: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 12px; color: var(--charcoal); }
+    .footer-bottom a { color: var(--grey); transition: color 0.3s; }
+    .footer-bottom a:hover { color: var(--neon-green); }
+
+    body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+
+    @media (max-width: 1024px) {
+      .story-grid { grid-template-columns: 1fr; gap: 0; }
+      .story-text { padding: 48px; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      :root { --section-padding: 100px 0; }
+    }
+    @media (max-width: 768px) {
+      .values-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+      .story-text { padding: 36px; }
+      :root { --section-padding: 80px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Adventure<span>.</span></a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+        <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">Our Story</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="#" aria-label="Instagram">IG</a><a href="#" aria-label="Twitter">TW</a><a href="#" aria-label="Pinterest">PI</a><a href="#" aria-label="TikTok">TK</a>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="section-label">Our Story</div>
+      <h1 class="section-title">Rooted in <em style="font-style:italic;color:var(--neon-green);">Tradition</em></h1>
+      <p class="section-subtitle" style="margin:0 auto; max-width:520px;">A journey from the mist-covered hills of Uji to your morning cup — driven by reverence, refined by nature.</p>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story-section">
+    <div class="story-grid">
+      <div class="story-image reveal">
+        <img src="https://picsum.photos/seed/ujiteafield/800/700.jpg" alt="Uji tea field panorama">
+      </div>
+      <div class="story-text">
+        <div class="section-label reveal">The Beginning</div>
+        <h2 class="section-title reveal reveal-delay-1">Where It All Started</h2>
+        <p class="reveal reveal-delay-2">In the spring of 2018, our founder spent three months living with a tea farming family in Uji, Kyoto Prefecture. She woke before dawn to help cover the tea plants with traditional kanreisha shading, learned the patient art of stone-grinding, and experienced firsthand the meditative stillness that surrounds authentic matcha production.</p>
+        <p class="reveal reveal-delay-3">That experience changed everything. She returned home determined to build a bridge between those quiet hills and the rest of the world — not as a middleman, but as a storyteller, a custodian of craft, and a companion on the path to a more intentional way of living.</p>
+        <p class="reveal reveal-delay-4">Adventure Matcha launched with a single tin of ceremonial grade powder and a conviction: that the simple act of preparing matcha can become a portal to presence, to calm, to something genuinely sacred in an otherwise hurried world.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX QUOTE -->
+  <section class="parallax-banner parallax-section">
+    <div class="parallax-bg" data-speed="0.3" style="background-image:url('https://picsum.photos/seed/bambooforest/1600/800.jpg')"></div>
+    <div class="parallax-banner-content reveal">
+      <div class="section-label" style="justify-content:center;">Philosophy</div>
+      <h2 class="section-title">"Matcha is not a product.<br>It is a <em style="font-style:italic;color:var(--neon-green);">practice.</em>"</h2>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label reveal">Our Principles</div>
+        <h2 class="section-title reveal reveal-delay-1">What Guides Us</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <div class="value-number">01</div>
+          <h3>Transparency</h3>
+          <p>Every product is traceable to its origin farm, harvest date, and processing method. We have nothing to hide because we have everything to be proud of.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-1">
+          <div class="value-number">02</div>
+          <h3>Purity</h3>
+          <p>No additives, no artificial coloring, no fillers. Just shade-grown, stone-ground tencha leaf — the way matcha was meant to be experienced.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <div class="value-number">03</div>
+          <h3>Patience</h3>
+          <p>Great matcha cannot be rushed. From the 30-day shading period to the slow stone-grinding process, we honor the timelines that nature demands.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-3">
+          <div class="value-number">04</div>
+          <h3>Community</h3>
+          <p>We are building more than a store. We are cultivating a global community of people who believe that slowing down is a radical and beautiful act.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label reveal">Our Journey</div>
+        <h2 class="section-title reveal reveal-delay-1">Milestones</h2>
+      </div>
+      <div class="timeline-items">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div>
+            <div class="timeline-year">2018</div>
+            <h3>The Seed Is Planted</h3>
+            <p>Three months in Uji, living with a tea farming family, learning the ancient craft from the ground up. The idea for Adventure Matcha takes root.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div>
+            <div class="timeline-year">2019</div>
+            <h3>First Harvest, First Sale</h3>
+            <p>We partnered with the Horii family in Uji and launched with a single ceremonial grade tin. Sold out in eleven days from a kitchen table in Portland.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div>
+            <div class="timeline-year">2021</div>
+            <h3>Expanding the Ritual</h3>
+            <p>Introduced our Chasen and Chawan collections, partnering with master artisans in Takayama and Kyoto. The full ritual — not just the powder — became our offering.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div>
+            <div class="timeline-year">2023</div>
+            <h3>A Community of 8,000</h3>
+            <p>Reached 8,000 customers across 28 countries. Launched seasonal limited editions and guided virtual tasting experiences with our farm partners.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+          <div>
+            <div class="timeline-year">2025</div>
+            <h3>The Adventure Continues</h3>
+            <p>Twelve farm partners, forty products, and one unwavering mission: to make the transformative power of authentic matcha accessible to everyone willing to slow down.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:120px 0; text-align:center;">
+    <div class="container reveal">
+      <div class="section-label" style="justify-content:center;">Ready to Begin</div>
+      <h2 class="section-title" style="margin-bottom:20px;">Explore Our Collection</h2>
+      <p class="section-subtitle" style="margin:0 auto 40px;">Nine grades of matcha powder, handcrafted whisks, and artisan bowls — each one a gateway to a deeper practice.</p>
+      <a href="catalogue.html" class="btn-primary"><span>View Catalogue</span></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="font-size:30px;">Adventure<span>.</span></a>
+          <p>Premium matcha sourced from the finest tea fields of Japan. We believe in slow rituals, honest craft, and the quiet power of nature.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">IG</a><a href="#" aria-label="Twitter">TW</a><a href="#" aria-label="Pinterest">PI</a><a href="#" aria-label="TikTok">TK</a>
+          </div>
+        </div>
+        <div class="footer-col"><h4>Explore</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">Our Story</a></li><li><a href="catalogue.html">Catalogue</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Catalogue</h4><ul><li><a href="catalogue.html#matcha-powder">Matcha Powder</a></li><li><a href="catalogue.html#chasen-whisk">Chasen Whisks</a></li><li><a href="catalogue.html#chawan-bowl">Chawan Bowls</a></li><li><a href="catalogue.html">Gift Sets</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:hello@adventurematcha.com">hello@adventurematcha.com</a></li><li><a href="tel:+18005550192">+1 (800) 555-0192</a></li><li><a href="#">Portland, Oregon</a></li><li><a href="#">Mon — Fri, 9am — 5pm PST</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Adventure Matcha. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a> &nbsp;·&nbsp; <a href="#">Shipping Info</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const nav = document.getElementById('mainNav');
+    let menuOpen = false;
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('active', menuOpen);
+      mobileNav.classList.toggle('open', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false; hamburger.classList.remove('active');
+        mobileNav.classList.remove('open'); document.body.style.overflow = '';
+      });
+    });
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    const parallaxBgs = document.querySelectorAll('.parallax-bg[data-speed]');
+    window.addEventListener('scroll', () => {
+      parallaxBgs.forEach(bg => {
+        const section = bg.closest('section');
+        const rect = section.getBoundingClientRect();
+        const speed = parseFloat(bg.dataset.speed) || 0.3;
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          bg.style.transform = `translate3d(0, ${rect.top * speed}px, 0)`;
+        }
+      });
+    }, { passive: true });
+  </script>
+</body>
+</html>
